@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Services Search</title>
+    <script type="text/javascript">
+        // This function will take input of search string and location. It will then call a php page to call MYSQL DB to fetch the records
+        function showSearchResults() {
+
+            var location = document.getElementById('location').value;
+            var businessType = document.getElementById('businessType').value;
+
+            if (location == null || businessType == null || businessType.length == 0 || location.length == 0) {
+                document.getElementById("overlay").innerHTML = "Ooops !! Please select a valid location or Business";
+                document.getElementById("overlay").style.display = "block";
+                return;
+            } else {
+                document.getElementById('loadingmessage').style.zIndex = '3';
+                document.getElementById("loadingmessage").style.display = "block";
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("overlay").innerHTML = this.responseText;
+                        document.getElementById("overlay").style.display = "block";
+                        document.getElementById("loadingmessage").style.display = "none";
+                    }
+                };
+                xmlhttp.open("GET", "php/searchresults.php?businessType=" + businessType + "&location=" + location, true);
+                xmlhttp.send();
+            }
+        }
+
+        function closeSearchResults() {
+            document.getElementById('loadingmessage').style.zIndex = '0';
+            document.getElementById("overlay").style.display = "none";
+        }
+
+        function showCheckIn(business_id, business_name, business_type_id) {
+            alert('business_name : ' + business_name + 'business_id : ' + business_id + 'business_name : ' + business_type_id);
+
+            window.location = "php/checkIn.php?business_type_id=" + business_type_id + "&business_id=" + business_id + "&business_name=" + business_name;
+
+
+        }
+    </script>
+    <style>
+        table {
+            border: 1;
+            width: 100%;
+            color: #588c7e;
+            font-family: monospace;
+            font-size: 18px;
+            text-align: left;
+        }
+        
+        #overlay {
+            position: fixed;
+            /* Sit on top of the page content */
+            display: none;
+            /* Hidden by default */
+            width: 80%;
+            /* Full width (cover the whole page) */
+            height: 60%;
+            /* Full height (cover the whole page) */
+            top: 10%;
+            left: 10%;
+            right: 10%;
+            bottom: 10%;
+            z-index: 2;
+            /* Specify a stack order in case you're using a different order for other elements */
+            cursor: pointer;
+            /* Add a pointer on hover */
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <tr>
+
+            <td align="center">
+                <label>Where : </label>
+                <select name="location" id="location" onchange="showSearchResults()">
+					  <option value="1">Shamli</option>
+					  <option value="2">Modinagar</option>
+					  <option value="3">Rampur</option>
+					</select>
+            </td>
+
+            <td>
+                <label align="center">What : </label>
+                <select name="business_type" id="businessType" onchange="showSearchResults()">
+					  <option value="3">Pharmacy</option>
+					  <option value="1">Grocery</option>
+					  <option value="2">Bakery</option>
+					</select>
+            </td>
+        </tr>
+    </table>
+
+    <div id="overlay" style="display:none">
+
+    </div>
+
+
+    <div id='loadingmessage' style='display:none' width="100%" align="center">
+        <img src='img/ajax-loader.gif' />
+    </div>
+
+
+</body>
+
+</html>
+
+</body>
+
+</html>

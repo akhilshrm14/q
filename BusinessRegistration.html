@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Business Registration</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="util.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <!--===============================================================================================-->
+
+</head>
+
+<body>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <div class="container-contact100">
+        <div class="wrap-contact100">
+            <form class="contact100-form validate-form" method="POST" action="business.php">
+                <span class="contact100-form-title">
+					Business Registration Form
+				</span>
+
+                <div class="wrap-input100 validate-input" data-validate="Name is required">
+                    <span class="label-input100">Business Name</span>
+                    <input class="input100" type="text" name="name" placeholder="Enter your Business name">
+                    <span class="focus-input100"></span>
+                </div>
+                <div class="wrap-input100 input100-select">
+                    <span class="label-input100">Business Type</span>
+                    <div>
+                        <select class="selection-2" name="service" id="type">
+                                        <option disabled selected value>Business Type</option>
+                                        <option value="1">Grocery</option>
+                                        <option value="2">Bakery</option>
+                                        <option value="3">Hospital</option>
+                                    </select>
+                    </div>
+                    <span class="focus-input100"></span>
+                </div>
+                <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                    <span class="label-input100">Business Address Line 1</span>
+                    <input class="input100" type="text" name="line1" placeholder="Enter your Business addess Line 1">
+                    <span class="focus-input100"></span>
+                </div>
+                <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                    <span class="label-input100">Business Address Line 2</span>
+                    <input class="input100" type="text" name="line2" placeholder="Enter your Business addess Line 2">
+                    <span class="focus-input100"></span>
+                </div>
+                <div class="wrap-input100 input100-select">
+                    <span class="label-input100">City</span>
+                    <div>
+                        <select class="selection-2" name="city">
+                                        <option disabled selected value>City</option>
+                                        <option value="1">Shamli</option>
+                                        <option value="2">Modi Nagar</option>
+                                        <option value="3">Rampur</option>
+                                    </select>
+                    </div>
+                    <span class="focus-input100"></span>
+                </div>
+                <div class="wrap-input100 input100-select">
+                    <span class="label-input100">State</span>
+                    <div>
+                        <select class="selection-2" name="state">
+                                        <option disabled selected value>State</option>
+                                        <option value="1">Uttar Pradesh</option>
+                                        <option value="2">Himachal Pradesh</option>
+                                    </select>
+                    </div>
+                    <span class="focus-input100"></span>
+                </div>
+                <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                    <span class="label-input100">Zip Code</span>
+                    <input class="input100" type="number" name="zip" placeholder="Enter your Zip Code">
+                    <span class="focus-input100"></span>
+                </div>
+                <div class="wrap-input100 input100-select">
+                    <span class="label-input100">Country</span>
+                    <div>
+                        <select class="selection-2" name="country">
+                                        <option disabled selected value>Country</option>
+                                        <option value="1">India</option>
+                                    </select>
+                    </div>
+                    <span class="focus-input100"></span>
+                </div>
+                <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                    <span class="label-input100">Contact Number</span>
+                    <input class="input100" type="text" name="contact" placeholder="Enter your Contact Number">
+                    <span class="focus-input100"></span>
+                </div>
+                <!--Services Provided-->
+                <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                    <span class="label-input100"><h6>Select Services</h6></span>
+                    <span class="focus-input100"></span>
+                    <br>
+                    <div id="size">
+
+                    </div>
+
+
+                    <script>
+                        $(document).ready(function() {
+                            $("#type").change(function() {
+                                var val = $(this).val();
+                                if (val == "1" || val == "2") {
+                                    $("#size").html("<input type='checkbox' name='new[]' value='1' ><label for='new order'> New order </label><br><input type='checkbox' name='new[]' value='2'><label for='Pickup'> Pick up</label>");
+                                } else if (val == "2") {
+                                    $("#size").html("<input type='checkbox' name='new[]' value='1' ><label for='new order'> New order </label><br><input type='checkbox' name='new[]' value='2'><label for='Pickup'> Pick up</label>");
+                                } else if (val == "3") {
+                                    $("#size").html("<input type='checkbox' name='new[]' value='3'><label for='npatient'> New Patient  </label><br><input type='checkbox' name='new[]' value='4'><label for='rpatient'> Re-Occuring Patient</label><br><input type='checkbox' name='new[]' value='6'><label for='lab'> Lab Report Consultation</label><br><input type='checkbox' name='new[]' value='5'><label for='lab'> Covid Care</label>");
+                                }
+                            });
+                        });
+                    </script>
+
+                </div>
+
+
+
+
+                <div class="container-contact100-form-btn">
+                    <div class="wrap-contact100-form-btn">
+                        <div class="contact100-form-bgbtn"></div>
+                        <button input type="submit" name='submit' class="btn btncontact100-form-btn">
+							<span>
+								Submit
+								<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+							</span>
+						</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+
+
+
+
+
+    <div id="dropDownSelect1"></div>
+
+    <!--===============================================================================================-->
+    <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="vendor/bootstrap/js/popper.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="vendor/select2/select2.min.js"></script>
+    <script>
+        $(".selection-2").select2({
+            minimumResultsForSearch: 20,
+            dropdownParent: $('#dropDownSelect1')
+        });
+    </script>
+    <!--===============================================================================================-->
+    <script src="vendor/daterangepicker/moment.min.js"></script>
+    <script src="vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="js/main.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-23581568-13');
+    </script>
+
+</body>
+
+</html>
