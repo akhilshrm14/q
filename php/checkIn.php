@@ -94,6 +94,8 @@ while($result = mysqli_fetch_assoc($query)) {
     
 $sql_check_customer="Select customer_id from CUSTOMER where phone_no='$phone'";
 $query1 = $conn->query($sql_check_customer);
+if($fname!=NULL && $lname!=NULL && $phone!=NULL)
+{
 while($result1 = mysqli_fetch_assoc($query1)) 
 {
     $customer_id = $result1["customer_id"];
@@ -129,8 +131,12 @@ while($result1 = mysqli_fetch_assoc($query1))
             echo ('<script>alert("New Customer Added into Customer Table \n Inserted new Customer into Customer Service RLT")</script>');
     }
 
+    }
+    else
+    {
+        echo ('<script>alert("\nFill The Form")</script>');
+    }
 }
- 
 
 
 
