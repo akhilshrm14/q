@@ -45,7 +45,7 @@ $checkbox=$_POST['new'];
 // Extracting Business ID
 if ($link->query($sql_insert_business) === TRUE) {
     $business_id = $link->insert_id;
-    echo "New record created successfully. Last inserted ID is: " . $business_id;
+    echo ('<script>alert("New record created successfully.")</script>');
     foreach($checkbox as $service_id)  
    {  
       
@@ -53,8 +53,8 @@ if ($link->query($sql_insert_business) === TRUE) {
       values('$service_id','$business_id','Harsh Garg','$date','$date');"; 
       mysqli_query($link, $sql_business_rlt);
    } 
-   echo "Records added successfully.to Service table";
-
+   echo ('<script>alert(Records added successfully.to Service table")</script>');
+   echo('<script>window.location.replace("index.html")</script>');
 }
 else{
     echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);

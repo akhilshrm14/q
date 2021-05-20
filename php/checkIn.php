@@ -1,30 +1,141 @@
 <!DOCTYPE html>
 <html>
 <head>
+    
     <style>
-        table {
-        border: 1;
-        width: 100%;
-        color: #588c7e;
-        font-family: monospace;
-        font-size: 25px;
-        text-align: left;
-        }
-        th {
-        background-color: #588c7e;
-        color: white;
-        }
-          tr:nth-child(even) {background-color: #f2f2f2}
+@import url('https://fonts.googleapis.com/css?family=Fjalla+One&display=swap');
+
+*
+{
+  margin: 0;
+  padding: 0;
+}
+body
+{
+  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/38816/image-from-rawpixel-id-2210775-jpeg.jpg") center center no-repeat;
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+.contact-us
+{
+  background: #f8f4e5;
+  padding: 50px 100px;
+  border: 2px solid rgba(0,0,0,1);
+  box-shadow: 15px 15px 1px #ffa580, 15px 15px 1px 2px rgba(0,0,0,1);
+}
+input
+{
+  display: block;
+  width: 100%;
+  font-size: 14pt;
+  line-height: 14pt * 2;
+  font-family: 'Fjalla One';
+  margin-bottom: 14pt * 2;
+  border: none;
+  border-bottom: 5px solid rgba(0,0,0,1);
+  background: #f8f4e5;
+  min-width: 250px;
+  padding-left: 5px;
+  outline: none;
+  color: rgba(0,0,0,1)
+}
+select
+{
+    display: block;
+  width: 100%;
+  font-size: 14pt;
+  line-height: 14pt * 2;
+  font-family: 'Fjalla One';
+  margin-bottom: 14pt * 2;
+  border: none;
+  border-bottom: 5px solid rgba(0,0,0,1);
+  background: #f8f4e5;
+  min-width: 250px;
+  padding-left: 5px;
+  outline: none;
+  color: rgba(0,0,0,1)
+}
+input:focus
+{
+  border-bottom: 5px solid #ffa580;
+}
+button
+{
+  display: block;
+  margin: 0 auto;
+  line-height: 14pt * 2;
+  padding: 0 20px;
+  background: #ffa580;
+  letter-spacing: 2px;
+  transition: .2s all ease-in-out;
+  outline: none;
+  border: 1px solid rgba(0,0,0,1);
+  box-shadow: 3px 3px 1px #95a4ff, 3px 3px 1px 1px rgba(0,0,0,1);
+}
+  button:hover
+  {
+    background: rgba(0,0,0,1);
+    color: white;
+    border: 1px solid rgba(0,0,0,1);
+  }
+::selection 
+{
+  background: #ffc8ff;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus
+{
+  border-bottom: 5px solid #95a4ff;
+  -webkit-text-fill-color: #2A293E;
+  -webkit-box-shadow: 0 0 0px 1000px #f8f4e5 inset;
+            box-shadow:0 0 0px 1000px #f8f4e5 inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
     </style>
-    </head>
+        
+        <script type="text/javascript">
+        // This function will take input of search string and location. It will then call a php page to call MYSQL DB to fetch the records
+        function showSearchResults() {
+
+            var location = document.getElementById('location').value;
+            var businessType = document.getElementById('businessType').value;
+
+            if (location == null || businessType == null || businessType.length == 0 || location.length == 0) {
+                document.getElementById("overlay").innerHTML = "Ooops !! Please select a valid location or Business";
+                document.getElementById("overlay").style.display = "block";
+                return;
+            } else {
+                document.getElementById('loadingmessage').style.zIndex = '3';
+                document.getElementById("loadingmessage").style.display = "block";
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("overlay").innerHTML = this.responseText;
+                        document.getElementById("overlay").style.display = "block";
+                        document.getElementById("loadingmessage").style.display = "none";
+                    }
+                };
+                xmlhttp.open("GET", "php/searchresults.php?businessType=" + businessType + "&location=" + location, true);
+                xmlhttp.send();
+            }
+        }
+        </script>
+
+</head>
 <body>
-<form method="post" action="">
-        <label for="fname">First name:</label>
-        <input type="text" id="fname" name="fname"><br><br>
-        <label for="lname">Last name:</label>
-        <input type="text" id="lname" name="lname"><br><br>
-        <label for="contact">Contact Number:</label>
-        <input type="tel" id="contact" name="contact"><br><br>
+
+<form class="contact-us" method="post" action="">
+        <label><h1>CheckIn Form</h1></label>
+        <hr>
+        <br>
+        <input type="text" id="fname" name="fname" placeholder="First Name"><br><br>
+        <input type="text" id="lname" name="lname" placeholder="Last Name"><br><br>
+        <input type="tel" id="contact" name="contact" placeholder="Contact Number"><br><br>
 
         <div class="wrap-input100 validate-input" id="size">
         </div>
@@ -45,14 +156,14 @@ if($conn === false){
 $business_Type = mysqli_real_escape_string($conn, $_REQUEST['business_type_id']);
 $business_id = mysqli_real_escape_string($conn, $_REQUEST['business_id']);
 $business_name = mysqli_real_escape_string($conn, $_REQUEST['business_name']);
-
+$location = mysqli_real_escape_string($conn, $_REQUEST['location']);
 $date = new DateTime();
 
 $date = date("Y-m-d H:i:s");
 // paint dropdown in html
 if ($business_Type == '1' || $business_Type == '2') { ?>
 <select name="services" id="services">
-<option disabled selected value>Service</option>
+<option disabled selected value>Services</option>
 <option value="1">New Order</option>
 <option value="2" >Pick UP</option>
 </select>
@@ -60,7 +171,7 @@ if ($business_Type == '1' || $business_Type == '2') { ?>
 } 
 else if ($business_Type == '3') { ?>
     <select name="services" id="services">
-        <option disabled selected value>Service</option>
+        <option disabled selected value>Services</option>
         <option value="3" >New Patient</option>
         <option value="4" >Re-Occuring Patient</option>
         <option value="6" >Lab Report Consultation</option>
@@ -129,6 +240,7 @@ while($result1 = mysqli_fetch_assoc($query1))
             values(1,'$new_customer_id','$business_service_rlt_id','Utkarsh','Harsh Garg','$date','$date')";
             mysqli_query($conn, $sql_insert_business_servicerlt);
             echo ('<script>alert("New Customer Added into Customer Table \n Inserted new Customer into Customer Service RLT")</script>');
+            echo('<script type="text/javascript">showSearchResults();</script>');
     }
 
     }
@@ -147,8 +259,9 @@ while($result1 = mysqli_fetch_assoc($query1))
 mysqli_close($conn);
 ?>
     <br>
-    <input type="submit" name="button" value="Submit">
+    <button input type="submit" name="button" value="Submit">SUBMIT
      <br>
+    </button>
     </form>
   
 </body>

@@ -63,7 +63,7 @@ echo " <div align=\"right\"><input type=\"button\" name=\"close\" onclick=\"clos
 
    // Loop through the result set
     while($row = mysqli_fetch_assoc($result)) {
-        
+        $location=$row["city_id"];
         // Retrieve Data for businesses
         $businessId = $row["business_id"];
         $sql_services = "SELECT service_id, service_name FROM SERVICES WHERE service_id IN (SELECT service_id FROM BUSINESS_SERVICE_RLT where business_id = '$businessId')";
