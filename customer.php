@@ -43,13 +43,13 @@ $sql_insert_customer="insert into CUSTOMER(first_name,last_name,phone_no,created
         
 if (mysqli_query($link, $sql_insert_customer) === TRUE) 
 {   
-    echo ('<script>alert("Customer Registered successfully.")</script>');
+    echo ('<script>alert("Customer Registered")</script>');
     echo('<script>window.location.replace("index.html")</script>');  
 }
 }
 else
 {
-    echo ('<script>alert("Customer not Registered successfully.")</script>');
+    echo ('<script>alert("Customer not Registered successfully.Please try again")</script>');
     echo('<script>window.location.replace("index.html")</script>');
     
 }

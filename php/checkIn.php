@@ -240,7 +240,7 @@ while($result1 = mysqli_fetch_assoc($query1))
             values(1,'$new_customer_id','$business_service_rlt_id','Utkarsh','Harsh Garg','$date','$date')";
             mysqli_query($conn, $sql_insert_business_servicerlt);
             echo ('<script>alert("New Customer Added into Customer Table \n Inserted new Customer into Customer Service RLT")</script>');
-            echo('<script type="text/javascript">showSearchResults();</script>');
+            echo('<script>window.location.replace("C:\xampp\htdocs\q\search.html")</script>');
     }
 
     }
